@@ -36,7 +36,7 @@ A GUI for creating and modifying character definitions for the react-pixel-text-
  ```
 
 ### What's next for the Character Editor?
-  * Some additional work is required in order to load your own JSON definition files, rather than just a stock starter set hard coded into the app.
+  * Some additional work is required in order to load your own JSON definition files from local storage, rather than just a stock starter set hard coded into the app.
 
 ### What's next for react-pixel-text-renderer?
   * I've been thinking about implementing support for different sizes of character definition grids.
