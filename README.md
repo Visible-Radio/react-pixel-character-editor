@@ -1,8 +1,8 @@
 # React-Pixel-Character-Editor
 
-*Not Yet Deployed online, but you could always clone the repo and run it locally.*
-
 A GUI for creating and modifying character definitions for the react-pixel-text-renderer.
+
+*Not Yet Deployed online, but you could always clone the repo and run it locally.*
 
 ### How to:
   * Create a definition in the grid.  A single click will toggle a square on and off. A click followed by a shift-click will toggle all squares in the line between the two clicks.
