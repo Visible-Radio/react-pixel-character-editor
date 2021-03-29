@@ -1,5 +1,7 @@
 # React-Pixel-Character-Editor
 
+### *Not Yet Deployed online, but you could always clone the repo and run it locally.
+
 A GUI for creating and modifying character definitions for the react-pixel-text-renderer.
 
 ### How to:
