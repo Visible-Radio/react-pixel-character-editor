@@ -22,7 +22,18 @@ A GUI for creating and modifying character definitions for the react-pixel-text-
   import customDefs from './customDefs.json';
   ```
 
-  * Pass the custom defs to the component as a prop: customDefs = {customDefs}
+  * Pass the custom defs to the component as a prop:
+  ```jsx
+  <TextRenderer
+    customDefs = {customDefs}
+    bgColor = {'rgba(0,10,50,1)'}
+    color = {[230, 0, 190]}
+    text={"it's good it's bad it's ugly it's a pixel text renderer."}
+    scale={20}
+    charSpaces={8}
+    animate={true}
+  />
+ ```
 
 ### What's next for the Character Editor?
   * Some additional work is required in order to load your own JSON definition files, rather than just a stock starter set hard coded into the app.
