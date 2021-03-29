@@ -3,7 +3,7 @@
 A GUI for creating and modifying character definitions for the react-pixel-text-renderer.
 
 ### How to:
-  * Create a definition in the grid.  A single click will toggle a square on and off.  A click followed by a shift-click will toggle all squares in the line between the two clicks.
+  * Create a definition in the grid.  A single click will toggle a square on and off. A click followed by a shift-click will toggle all squares in the line between the two clicks.
 
   * Enter a character in the text input to associate with the definition.
 
