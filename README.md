@@ -1,70 +1,32 @@
-# Getting Started with Create React App
+# React-Pixel-Character-Editor
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A GUI for creating and modifying character definitions for the react-pixel-text-renderer.
 
-## Available Scripts
+### How to:
+  * Create a definition in the grid.  A single click will toggle a square on and off.  A click followed by a shift-click will toggle all squares in the line between the two clicks.
 
-In the project directory, you can run:
+  * Enter a character in the text input to associate with the definition.
 
-### `npm start`
+  * Click Record Def.  The definition has now been appened to the definitions object.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+  * Click Save Defs to File.  The custom definitions will be downloaded as a JSON file.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+  * This file will be able to be used with the react-pixel-text-renderer instead of using it's included definitions.
 
-### `npm test`
+### Use with React-Pixel-Text-Renderer:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  * Place the customDefs.json file in the folder for your app that uses the react-pixel-text-renderer.
 
-### `npm run build`
+  * In your app import like this: import customDefs from './customDefs.json';
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  * Pass the custom defs to the component as a prop: customDefs = {customDefs}
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### What's next for the Character Editor?
+  * Some additional work is required in order to load your own JSON definition files, rather than just a stock starter set hard coded into the app.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### What's next for react-pixel-text-renderer?
+  * I've been thinking about implementing support for different sizes of character definition grids.
+  * Currently chars are defined in a 5 x 5 grid.  I'd like to Implement the ability to define characters on larger grids.
+  * This would enable proper support for upper and lower case characters and characters that can't be legibly defined with only 25 squares.  
+  * After wokring through that, another challenge would be to define the grid size on a per character basis rather than on a character set basis.  This would complicate the calculations for when to jump to a new line.
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
