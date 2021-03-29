@@ -18,7 +18,9 @@ A GUI for creating and modifying character definitions for the react-pixel-text-
   * Place the customDefs.json file in the folder for your app that uses the react-pixel-text-renderer.
 
   * In your app import like this: 
-  * ```javascript import customDefs from './customDefs.json';```
+  ```javascript 
+  import customDefs from './customDefs.json';
+  ```
 
   * Pass the custom defs to the component as a prop: customDefs = {customDefs}
 
