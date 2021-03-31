@@ -108,12 +108,15 @@ function App() {
 
   const onRecordDef = (event) => {
     if (!charKey) return;
-    setSessionDefs({...sessionDefs, [charKey]: def})
+    // the key / value pair " ": [] is a hack to keep TextRenderer from crashing when it receives incomplete custom defs
+    // internally when it doesn't recognize a character, it reaches for the space character
+    // But what if the def doesn't even have the space character?! KA-BOOM!
+    setSessionDefs({...sessionDefs, [charKey]: def, charWidth: 5, " ": []})
   }
 
   const onClear = (event) => {
     setDef([]);
-    setCharKey('')
+    // setCharKey('')
   }
 
   const onSave = () => {
@@ -159,18 +162,18 @@ function App() {
         charKey = {charKey}
         onRecordDef = {onRecordDef}
       >
-        <ClearBtn onClear = {onClear} />
-        <SaveBtn onSave = {onSave} />
-        <LoadBtn onLoadFile = {onLoadFile} />
+        {/* <ClearBtn onClear = {onClear} /> */}
+        {/* <SaveBtn onSave = {onSave} /> */}
+        {/* <LoadBtn onLoadFile = {onLoadFile} /> */}
         <OpenFileBtn onOpenLocalFile = { onOpenLocalFile }/>
       </CharKey>
-      <UniversalBtn
-        btnText = {'Launch missiles'}
-        uBtnClick = {null}
-      />
+      <UniversalBtn btnText = {'Clear Grid'} shortText = {'Clear'} BtnClick = {onClear} />
+      <UniversalBtn btnText = {'Record Definition'} shortText = {'Record'} BtnClick = {onRecordDef} />
+      <UniversalBtn btnText = {'Export JSON'} shortText = {'JSON'} BtnClick = {onSave} />
+      <UniversalBtn btnText = {'Factory Reset'} shortText = {'Reset'} BtnClick = {onLoadFile} />
       <TextRenderer
         customDefs = { sessionDefs }
-        text = {'ABCDEFGHIJKLMNOPQRSTUVWXYZ'}
+        text = {'A B C D E F G H I J K L M  N O P Q R S T U V W X Y Z1 2 3 4 5 6 7 8 9 ! @ #'}
         charSpaces = {26}
         scaleMode = {'auto'}
       />

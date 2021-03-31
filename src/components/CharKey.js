@@ -9,8 +9,8 @@ export default function charKey({ onCharKeyInput, charKey, onRecordDef, children
         type="text"
         value = {charKey}
         />
-      <button onClick={onRecordDef} id="charKeyRecord">Record Def</button>
-      { children }
+      {/* <button onClick={onRecordDef} id="charKeyRecord">Record Def</button> */}
+      {/* { children } */}
     </div>
   )
 }
