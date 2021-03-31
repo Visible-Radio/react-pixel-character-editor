@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import './App.css';
 import Grid from './components/Grid';
-import CharKey from './components/CharKey'
+import CharKey from './components/CharKey';
 import ClearBtn from './components/ClearBtn';
 import SaveBtn from './components/SaveBtn'
 import LoadBtn from './components/LoadBtn';
-import customDefs from './customDefs.json'
+import OpenFileBtn from './components/OpenFileBtn';
+import customDefs from './customDefs.json';
+import TextRenderer from 'react-pixel-text-renderer';
+import UniversalBtn from './components/UniversalBtn';
 
 function App() {
   const [ def, setDef ] = useState([]);
   const [ charKey, setCharKey ] = useState('');
-  const [ sessionDefs, setSessionDefs] = useState({});
+  const [ sessionDefs, setSessionDefs] = useState(null);
   const [ lastBoxValue, setLastBoxValue] = useState(null);
 
   const handleBoxClick = (event) => {
@@ -97,7 +100,7 @@ function App() {
 
   const onCharKeyInput = (event) => {
     // if we enter a key we've already used, display the character in the editor
-    if (sessionDefs.hasOwnProperty(event.target.value)) {
+    if (sessionDefs?.hasOwnProperty(event.target.value)) {
       setDef(sessionDefs[event.target.value]);
     }
     setCharKey(event.target.value);
@@ -137,6 +140,14 @@ function App() {
     setSessionDefs(customDefs);
   }
 
+  const onOpenLocalFile = async (event) => {
+    const file = event.target.files[0];
+    const fileContents = JSON.parse(await file.text());
+    console.log('fileContents :>> ', fileContents);
+    setSessionDefs(fileContents);
+  }
+
+  console.log('sessionDefs :>> ', sessionDefs);
   return (
     <div className="App">
       <Grid
@@ -147,10 +158,23 @@ function App() {
         onCharKeyInput = {onCharKeyInput}
         charKey = {charKey}
         onRecordDef = {onRecordDef}
+      >
+        <ClearBtn onClear = {onClear} />
+        <SaveBtn onSave = {onSave} />
+        <LoadBtn onLoadFile = {onLoadFile} />
+        <OpenFileBtn onOpenLocalFile = { onOpenLocalFile }/>
+      </CharKey>
+      <UniversalBtn
+        btnText = {'Launch missiles'}
+        uBtnClick = {null}
       />
-      <ClearBtn onClear = {onClear} />
-      <SaveBtn onSave = {onSave} />
-      <LoadBtn onLoadFile = {onLoadFile} />
+      <TextRenderer
+        customDefs = { sessionDefs }
+        text = {'ABCDEFGHIJKLMNOPQRSTUVWXYZ'}
+        charSpaces = {26}
+        scaleMode = {'auto'}
+      />
+
     </div>
   );
 }
