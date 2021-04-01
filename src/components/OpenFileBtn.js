@@ -1,7 +1,8 @@
-export default function OpenFileBtn({ onOpenLocalFile }) {
+export default function OpenFileBtn({ onHiddenFileInputClick }) {
   return (
     <input
-      onChange={onOpenLocalFile}
+      style={{display: 'none'}}
+      onChange={onHiddenFileInputClick}
       type="file"
       id="file-selector"
       accept=".json"

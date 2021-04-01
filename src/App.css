@@ -1,12 +1,44 @@
 .App {
   background-color: rgb(0,40,50);
-  display: flex;
-  flex-flow: row wrap;
-  /* align-content: center; */
-  align-items: center;
-  /* justify-items: center; */
-  justify-content: center;
+  display: grid;
   max-width: 100%;
+  grid-template-columns: repeat(auto-fit, 320px);
+  grid-template-rows: auto;
+  grid-auto-columns: 320px;
+  justify-content: center;
+  align-items: center;
+  grid-gap: 20px;
+  padding: 0;
+  margin: 20px 0 20px 0;
+}
+
+.TextRenderer {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 6px solid rgb(0,55,65);
+  background-color: rgb(0,30,40);
+  padding: 10px;
+  grid-column: 1 / 3;
+}
+
+@media screen and (max-width: 726px) {
+  .TextRenderer {
+    grid-column: 1 / 1;
+  }
+}
+
+.TextRenderer__title {
+  font-size: 14px;
+  text-align: center;
+  color: rgb(0,190,200);
+  background-color: black;
+  border: 6px solid rgb(0,55,65);
+  width: max-content;
+  padding: 10px;
+  margin: -40px 0 15px 0;
+  border-radius: 25px;
 }
 
 html {
@@ -27,7 +59,6 @@ body {
   padding: 2px;
   width: 320px;
   height: 320px;
-  /* grid-gap: 2px; */
   border: 3px solid rgb(0, 55, 65);
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -35,15 +66,8 @@ body {
   justify-content: start;
   align-items: start;
   align-content: start;
-  margin: 10px;
+  margin: 0px;
 }
-
-/*
-styling for punchy analog looking buttons
-border-width: 5px;
-border-color: rgb(250, 130, 0) rgb(220, 110, 0) rgb(100, 20, 10) yellow;
-border-style: solid;
-*/
 
 .box {
   cursor: pointer;
@@ -53,16 +77,20 @@ border-style: solid;
   background-color: rgb(0,40,50);
 }
 
+.box:hover {
+  filter: brightness(1.25);
+}
+
 .box:active {
-  border: 1px solid rgb(240, 10, 0);
-  background-color: rgb(255, 100, 0);
+  border: 1px solid rgb(10, 240, 0);
+  background-color: rgb(100, 255, 0);
   transform: scale(0.9);
   filter: contrast(1.5) brightness(2);
-  box-shadow: 0 0 30px 15px rgba(255, 40, 0, .5);
+  box-shadow: 0 0 30px 15px rgba(40, 255, 0, .5);
 }
 
 .box.selected {
-  background-color: rgb(220, 10, 0);
+  background-color: rgb(10, 160, 0);
   border-width: 2px;
   border-color: rgba(0, 55, 65, 0.1) rgba(0, 55, 65, 0.2) rgba(0, 55, 65, 0.3) rgba(0, 55, 65, 0.1);
   border-style: solid;
@@ -73,81 +101,4 @@ border-style: solid;
   transform: scale(0.9);
   filter: contrast(1.5) brightness(1.25);
   box-shadow: 0 0 30px 15px rgba(255, 0, 0, .5);
-}
-
-#charKey {
-  font-size: 4rem;
-  max-width: 160px;
-  text-align: center;
-  border-color: rgb(240,10,0);
-  color:rgb(240, 10, 0);
-  background-color: rgb(0, 25, 35);
-  border-radius: 5px;
-  grid-column: 1 / 2;
-  grid-row: 2 / 3;
-}
-
-#charKeyRecord, #clearBtn, #saveBtn, #loadBtn {
-  border: none;
-  background-color: rgb(240,10,0);
-  color: rgb(0,40,50);
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
-  font-size: 1rem;
-  transition-property: all;
-  transition-duration: 0.1s;
-}
-#charKeyRecord:active, #clearBtn:active, #saveBtn:active, #loadBtn:active {
-  transform: scale(0.7);
-  filter: contrast(1.5) brightness(1.2);
-}
-
-#charKeyRecord:hover, #clearBtn:hover, #saveBtn:hover, #loadBtn:hover {
-  filter: contrast(1.5) brightness(1.2);
-}
-#charKeyRecord:focus, #clearBtn:focus, #saveBtn:focus, #loadBtn:focus {
-  outline: 1px solid rgb(240, 10, 0);
-  outline-offset: 4px;
-}
-
-#charKeyContainer {
-  display: grid;
-  grid-gap: 20px;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: auto repeat(auto);
-  max-width: 320px;
-  margin: 10px;
-  padding: 0;
-}
-
-#clearBtn {
-  grid-row: 3 / 4;
-  grid-column: 1 / 3;
-  height: 3rem;
-  font-size: 1.5rem;
-}
-
-#saveBtn {
-  grid-row: 4 / 5;
-  grid-column: 1 / 3;
-  height: 2rem;
-  font-size: 1.25rem;
-}
-
-#loadBtn {
-  grid-row: 5 / 6;
-  grid-column: 1 / 3;
-  height: 2rem;
-  font-size: 1.25rem;
-}
-
-#charKeyContainer p {
-  grid-column: 1 / 3;
-  margin: 0;
-}
-
-#charKey:focus {
-  outline: 1px solid rgb(240, 10, 0);
-  outline-offset: 4px;
-  background-color: rgb(0, 20, 0);
 }

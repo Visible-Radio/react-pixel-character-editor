@@ -2,13 +2,11 @@ import { useState } from 'react';
 import './App.css';
 import Grid from './components/Grid';
 import CharKey from './components/CharKey';
-import ClearBtn from './components/ClearBtn';
-import SaveBtn from './components/SaveBtn'
-import LoadBtn from './components/LoadBtn';
 import OpenFileBtn from './components/OpenFileBtn';
 import customDefs from './customDefs.json';
 import TextRenderer from 'react-pixel-text-renderer';
 import UniversalBtn from './components/UniversalBtn';
+import BtnPanel from './components/BtnPanel';
 
 function App() {
   const [ def, setDef ] = useState([]);
@@ -143,41 +141,53 @@ function App() {
     setSessionDefs(customDefs);
   }
 
-  const onOpenLocalFile = async (event) => {
+  const onOpenLocalFile = (event) => {
+    // opening local JSON file
+    const hiddenFileInput = document.querySelector('#file-selector');
+    hiddenFileInput.click();
+  }
+
+  const onHiddenFileInputClick = async (event) => {
     const file = event.target.files[0];
     const fileContents = JSON.parse(await file.text());
     console.log('fileContents :>> ', fileContents);
     setSessionDefs(fileContents);
   }
 
-  console.log('sessionDefs :>> ', sessionDefs);
+  let charSet = 'A B C D E F G H I J K L M  N O P Q R S T U V W X Y Z1 2 3 4 5 6 7 8 9';
+  if (sessionDefs) {
+    charSet = Object.keys(sessionDefs).join(' ');
+  }
+
   return (
     <div className="App">
       <Grid
         handleBoxClick={handleBoxClick}
         def={def}
       />
-      <CharKey
-        onCharKeyInput = {onCharKeyInput}
-        charKey = {charKey}
-        onRecordDef = {onRecordDef}
-      >
-        {/* <ClearBtn onClear = {onClear} /> */}
-        {/* <SaveBtn onSave = {onSave} /> */}
-        {/* <LoadBtn onLoadFile = {onLoadFile} /> */}
-        <OpenFileBtn onOpenLocalFile = { onOpenLocalFile }/>
-      </CharKey>
-      <UniversalBtn btnText = {'Clear Grid'} shortText = {'Clear'} BtnClick = {onClear} />
-      <UniversalBtn btnText = {'Record Definition'} shortText = {'Record'} BtnClick = {onRecordDef} />
-      <UniversalBtn btnText = {'Export JSON'} shortText = {'JSON'} BtnClick = {onSave} />
-      <UniversalBtn btnText = {'Factory Reset'} shortText = {'Reset'} BtnClick = {onLoadFile} />
-      <TextRenderer
-        customDefs = { sessionDefs }
-        text = {'A B C D E F G H I J K L M  N O P Q R S T U V W X Y Z1 2 3 4 5 6 7 8 9 ! @ #'}
-        charSpaces = {26}
-        scaleMode = {'auto'}
-      />
-
+      <BtnPanel>
+        <CharKey
+          onCharKeyInput = {onCharKeyInput}
+          charKey = {charKey}
+          onRecordDef = {onRecordDef}
+        />
+        <UniversalBtn btnText = {'Record Definition'} shortText = {'Record'} BtnClick = {onRecordDef} col = {[250,100,20]}/>
+        <UniversalBtn btnText = {'Clear Grid'} shortText = {'Clear'} BtnClick = {onClear} col = {[200,240,20]} />
+        <UniversalBtn btnText = {'Export JSON'} shortText = {'JSON'} BtnClick = {onSave} col = {[0,200,190]} borRad = {'50%'} />
+        <UniversalBtn btnText = {'Load File'} shortText = {'Load'} BtnClick = {onOpenLocalFile} col = {[190,0,90]} />
+        <UniversalBtn btnText = {'Factory Reset'} shortText = {'Reset'} BtnClick = {onLoadFile} col = {[0,100,190]} />
+      </BtnPanel>
+        <OpenFileBtn onHiddenFileInputClick = { onHiddenFileInputClick }/>
+      <div className="TextRenderer">
+        <p className="TextRenderer__title">Definitions in Set</p>
+        <TextRenderer
+          customDefs = { sessionDefs }
+          text = {charSet}
+          charSpaces = {26}
+          scaleMode = {'auto'}
+          wordWrap = {true}
+        />
+      </div>
     </div>
   );
 }
