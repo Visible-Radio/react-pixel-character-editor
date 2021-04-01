@@ -11,7 +11,7 @@ import BtnPanel from './components/BtnPanel';
 function App() {
   const [ def, setDef ] = useState([]);
   const [ charKey, setCharKey ] = useState('');
-  const [ sessionDefs, setSessionDefs] = useState(null);
+  const [ sessionDefs, setSessionDefs] = useState(customDefs);
   const [ lastBoxValue, setLastBoxValue] = useState(null);
 
   const handleBoxClick = (event) => {
@@ -97,11 +97,12 @@ function App() {
   }
 
   const onCharKeyInput = (event) => {
+    const key = event.target.value.toUpperCase();
     // if we enter a key we've already used, display the character in the editor
-    if (sessionDefs?.hasOwnProperty(event.target.value)) {
-      setDef(sessionDefs[event.target.value]);
+    if (sessionDefs?.hasOwnProperty(key)) {
+      setDef(sessionDefs[key]);
     }
-    setCharKey(event.target.value);
+    setCharKey(key);
   }
 
   const onRecordDef = (event) => {
