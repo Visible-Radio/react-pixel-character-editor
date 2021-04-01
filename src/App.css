@@ -2,7 +2,7 @@
   background-color: rgb(0,40,50);
   display: grid;
   max-width: 100%;
-  grid-template-columns: repeat(auto-fit, 320px);
+  grid-template-columns: repeat(auto-fill, 320px);
   grid-template-rows: auto;
   grid-auto-columns: 320px;
   justify-content: center;
@@ -10,6 +10,7 @@
   grid-gap: 20px;
   padding: 0;
   margin: 20px 0 20px 0;
+  max-width: 800px;
 }
 
 .TextRenderer {
@@ -23,8 +24,26 @@
   grid-column: 1 / 3;
 }
 
+.Title {
+  grid-row: 1 / span 1;
+  grid-column: 1 / 3;
+}
+
 @media screen and (max-width: 726px) {
+  #editorGrid {
+    grid-row: 2 / span 1;
+    grid-column: 1 / 1;
+  }
+  .ButtonPanel {
+    grid-row: 3 / span 1;
+    grid-column: 1 / 1;
+  }
+
   .TextRenderer {
+    grid-column: 1 / 1;
+  }
+  .Title {
+    grid-row: 1 / span 1;
     grid-column: 1 / 1;
   }
 }

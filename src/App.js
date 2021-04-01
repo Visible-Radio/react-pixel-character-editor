@@ -161,10 +161,19 @@ function App() {
 
   return (
     <div className="App">
+      <div className="Title">
+        <TextRenderer
+          text = {'React-Pixel-Character-Editor'}
+          charSpaces = {26}
+          scaleMode = {'auto'}
+          wordWrap = {true}
+        />
+      </div>
       <Grid
         handleBoxClick={handleBoxClick}
         def={def}
       />
+      <div className="ButtonPanel">
       <BtnPanel>
         <CharKey
           onCharKeyInput = {onCharKeyInput}
@@ -177,6 +186,7 @@ function App() {
         <UniversalBtn btnText = {'Load File'} shortText = {'Load'} BtnClick = {onOpenLocalFile} col = {[190,0,90]} />
         <UniversalBtn btnText = {'Stock Defs'} shortText = {'Reset'} BtnClick = {onLoadFile} col = {[0,100,190]} />
       </BtnPanel>
+      </div>
         <OpenFileBtn onHiddenFileInputClick = { onHiddenFileInputClick }/>
       <div className="TextRenderer">
         <p className="TextRenderer__title">Definitions in Set</p>
