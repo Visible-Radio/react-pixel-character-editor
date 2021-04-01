@@ -154,7 +154,7 @@ function App() {
     setSessionDefs(fileContents);
   }
 
-  let charSet = 'A B C D E F G H I J K L M  N O P Q R S T U V W X Y Z1 2 3 4 5 6 7 8 9';
+  let charSet = '';
   if (sessionDefs) {
     charSet = Object.keys(sessionDefs).join(' ');
   }
@@ -175,7 +175,7 @@ function App() {
         <UniversalBtn btnText = {'Clear Grid'} shortText = {'Clear'} BtnClick = {onClear} col = {[200,240,20]} />
         <UniversalBtn btnText = {'Export JSON'} shortText = {'JSON'} BtnClick = {onSave} col = {[0,200,190]} borRad = {'50%'} />
         <UniversalBtn btnText = {'Load File'} shortText = {'Load'} BtnClick = {onOpenLocalFile} col = {[190,0,90]} />
-        <UniversalBtn btnText = {'Factory Reset'} shortText = {'Reset'} BtnClick = {onLoadFile} col = {[0,100,190]} />
+        <UniversalBtn btnText = {'Stock Defs'} shortText = {'Reset'} BtnClick = {onLoadFile} col = {[0,100,190]} />
       </BtnPanel>
         <OpenFileBtn onHiddenFileInputClick = { onHiddenFileInputClick }/>
       <div className="TextRenderer">
