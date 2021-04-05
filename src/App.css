@@ -2,7 +2,7 @@
   background-color: rgb(0,40,50);
   display: grid;
   max-width: 100%;
-  grid-template-columns: repeat(auto-fill, 320px);
+  grid-template-columns: 320px;
   grid-template-rows: auto;
   grid-auto-columns: 320px;
   justify-content: center;

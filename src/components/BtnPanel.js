@@ -7,6 +7,7 @@ const BtnGrid = styled.div`
   width: 320px;
   margin: 0;
   grid-template-columns: repeat(3, auto);
+  justify-content: center;
 `;
 
 export default function BtnPanel( { children }) {

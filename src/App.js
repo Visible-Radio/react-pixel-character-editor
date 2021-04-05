@@ -22,11 +22,9 @@ function App() {
       setDef((def) => {
         // if the clicked on item is already in the def, return the def minus the item
         if (def.includes(boxValue)) {
-
           return def.filter(coordinate => coordinate !== boxValue)
         } else {
         // if the clicked on item isn't in the def, return the def plus the item
-
           return [...def, boxValue].sort((a,b) => a - b);
         }
       });
