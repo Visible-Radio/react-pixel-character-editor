@@ -7,12 +7,14 @@ import customDefs from './customDefs.json';
 import TextRenderer from 'react-pixel-text-renderer';
 import UniversalBtn from './components/UniversalBtn';
 import BtnPanel from './components/BtnPanel';
+import IlluminatedButton from './components/IlluminatedButton';
 
 function App() {
   const [ def, setDef ] = useState([]);
   const [ charKey, setCharKey ] = useState('');
   const [ sessionDefs, setSessionDefs] = useState(customDefs);
   const [ lastBoxValue, setLastBoxValue] = useState(null);
+  const [ gridSize, setGridSize ] = useState(5);
 
   const handleBoxClick = (event) => {
     const box = event.target;
@@ -59,7 +61,7 @@ function App() {
     // current is in a different row and column, but is on a 45 degree diagonal from last
     // path between last and current is ambiguous and can't be decided without injecting an opinion
 
-    const gridWidth = 5;
+    const gridWidth = gridSize;
     let between = [];
 
     const rowOffset = (getRow(currentClick) - getRow(lastClick));
@@ -108,7 +110,7 @@ function App() {
     // the key / value pair " ": [] is a hack to keep TextRenderer from crashing when it receives incomplete custom defs
     // internally when it doesn't recognize a character, it reaches for the space character
     // But what if the def doesn't even have the space character?! KA-BOOM!
-    setSessionDefs({...sessionDefs, [charKey]: def, charWidth: 5, " ": []})
+    setSessionDefs({...sessionDefs, [charKey]: def, charWidth: gridSize, " ": []})
   }
 
   const onClear = (event) => {
@@ -153,6 +155,11 @@ function App() {
     setSessionDefs(fileContents);
   }
 
+  const handleGridWidth = (event) => {
+    const newWidth = Number(event.target.dataset.value);
+    setGridSize(newWidth);
+  }
+
   let charSet = '';
   if (sessionDefs) {
     charSet = Object.keys(sessionDefs).join(' ');
@@ -171,6 +178,7 @@ function App() {
       <Grid
         handleBoxClick={handleBoxClick}
         def={def}
+        gridSize = {gridSize}
       />
       <div className="ButtonPanel">
       <BtnPanel>
@@ -197,6 +205,11 @@ function App() {
           wordWrap = {true}
         />
       </div>
+      <IlluminatedButton
+        values = { [5, 7, 9, 11, 13] }
+        gridWidth = { gridSize }
+        handleGridWidth = { handleGridWidth }
+      />
     </div>
   );
 }

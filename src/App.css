@@ -73,15 +73,19 @@ body {
   color: rgb(240, 10, 0);
 }
 
-#editorGrid {
+/*
+
+  moved this CSS into StyledGrid component
+
+  #editorGrid {
   background-color: rgb(0, 55, 65);
   padding: 2px;
   width: 320px;
   height: 320px;
   border: 3px solid rgb(0, 55, 65);
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(9, 1fr);
   justify-content: start;
   align-items: start;
   align-content: start;
@@ -115,9 +119,4 @@ body {
   border-style: solid;
 }
 
-.active {
-  background-color: rgb(240, 20, 0);
-  transform: scale(0.9);
-  filter: contrast(1.5) brightness(1.25);
-  box-shadow: 0 0 30px 15px rgba(255, 0, 0, .5);
-}
+*/
