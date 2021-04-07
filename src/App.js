@@ -1,13 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import Grid from './components/Grid';
 import CharKey from './components/CharKey';
 import OpenFileBtn from './components/OpenFileBtn';
-import customDefs from './customDefs.json';
-import TextRenderer from 'react-pixel-text-renderer';
 import UniversalBtn from './components/UniversalBtn';
 import BtnPanel from './components/BtnPanel';
 import IlluminatedButton from './components/IlluminatedButton';
+// These are used as the default definitions
+import customDefs from './customDefs.json';
+
+// TextRenderer from installed Node module
+// import TextRenderer from 'react-pixel-text-renderer';
+
+// TextRenderer from local src for development
+import TextRenderer from './text-renderer-src/TextRenderer'
 
 function App() {
   const [ def, setDef ] = useState([]);
@@ -15,6 +21,20 @@ function App() {
   const [ sessionDefs, setSessionDefs] = useState(customDefs);
   const [ lastBoxValue, setLastBoxValue] = useState(null);
   const [ gridSize, setGridSize ] = useState(5);
+  const [ previewWidth, setPreviewWidth] = useState(null);
+
+  useEffect(() => {
+    // const defPreview = document.querySelector('.Container.Preview')
+    const defPreview = document.querySelector('.Container.Preview')
+    setPreviewWidth(defPreview.offsetWidth);
+    // monitor the size of the container for the character preview
+    // update TextRenderer char spaces prop accordingly
+    function handleResize(event) {
+      setPreviewWidth(defPreview.offsetWidth);
+    }
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [])
 
   const handleBoxClick = (event) => {
     const box = event.target;
@@ -98,7 +118,7 @@ function App() {
 
   const onCharKeyInput = (event) => {
     const key = event.target.value.toUpperCase();
-    // if we enter a key we've already used, display the character in the editor
+    // if we enter a key we've already used, display the character inrememberKey the editor
     if (sessionDefs?.hasOwnProperty(key)) {
       setDef(sessionDefs[key]);
     }
@@ -110,12 +130,12 @@ function App() {
     // the key / value pair " ": [] is a hack to keep TextRenderer from crashing when it receives incomplete custom defs
     // internally when it doesn't recognize a character, it reaches for the space character
     // But what if the def doesn't even have the space character?! KA-BOOM!
-    setSessionDefs({...sessionDefs, [charKey]: def, charWidth: gridSize, " ": []})
+    setSessionDefs({...sessionDefs, [charKey]: def, charWidth: gridSize, " " : []})
   }
 
   const onClear = (event) => {
     setDef([]);
-    setCharKey('')
+    // setCharKey('')
   }
 
   const onSave = () => {
@@ -144,25 +164,37 @@ function App() {
     // bad name for this function
     setSessionDefs(customDefs);
     setGridSize(customDefs.charWidth);
+    setDef(customDefs[charKey] ? customDefs[charKey] : []);
+    console.log('sessionDefs on reset :>> ', sessionDefs);
   }
 
   const onOpenLocalFile = (event) => {
     // opening local JSON file
+    console.log("universal button input event");
     const hiddenFileInput = document.querySelector('#file-selector');
     hiddenFileInput.click();
   }
 
   const onHiddenFileInputClick = async (event) => {
+    console.log("hidden input event");
+    console.log('event :>> ', event);
     const file = event.target.files[0];
+    if (!file) {
+      console.log('no file');
+      return;
+    }
     const fileContents = JSON.parse(await file.text());
     console.log('fileContents :>> ', fileContents);
-    setSessionDefs(fileContents);
     setGridSize(fileContents.charWidth);
+    setSessionDefs(fileContents);
+    setDef(fileContents[charKey] ? fileContents[charKey] : []);
+    console.log('sessionDefs on file open :>> ', sessionDefs);
   }
 
   const handleGridWidth = (event) => {
     const newWidth = Number(event.target.dataset.value);
     setGridSize(newWidth);
+    setSessionDefs({...sessionDefs, charWidth: newWidth, " " : []})
   }
 
   let charSet = '';
@@ -174,9 +206,10 @@ function App() {
     <div className="App">
       <div className="Title">
         <TextRenderer
-          text = {'React-Pixel-Character-Editor'}
-          charSpaces = {26}
-          scaleMode = {'auto'}
+          text = {'React Pixel Character Editor'}
+          charSpaces = {previewWidth < 660 ? 9 : 28}
+          scale = {4}
+          scaleMode = {previewWidth < 660 ? 'fixed' : 'auto'}
           wordWrap = {true}
         />
       </div>
@@ -201,12 +234,12 @@ function App() {
       </div>
         <OpenFileBtn onHiddenFileInputClick = { onHiddenFileInputClick }/>
 
-      <div className="Container">
+      <div className="Container Preview">
         <p className="Container__title">Definitions in Set</p>
         <TextRenderer
           customDefs = { sessionDefs }
           text = {charSet}
-          charSpaces = {26}
+          charSpaces = {previewWidth < 660 ? 9 : 19 }
           scaleMode = {'auto'}
           wordWrap = {true}
         />
