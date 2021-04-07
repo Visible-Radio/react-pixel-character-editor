@@ -15,6 +15,7 @@ export const StyledGrid = styled.div`
   align-items: start;
   align-content: start;
   margin: 0px;
+  box-shadow: 5px 5px 10px 3px rgb(0, 20, 0, 0.5);
 
   .box {
     cursor: pointer;

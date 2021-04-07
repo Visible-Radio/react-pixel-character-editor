@@ -115,7 +115,7 @@ function App() {
 
   const onClear = (event) => {
     setDef([]);
-    // setCharKey('')
+    setCharKey('')
   }
 
   const onSave = () => {
@@ -124,7 +124,8 @@ function App() {
     const output = sessionDefs;
     // output.charWidth or whatever the property is = 5 or whatever
     const outputJSON = JSON.stringify(output);
-    download(outputJSON, 'customDefs.json', 'text/plain');
+    // changing fileName from 'customDefs.json' may break imports of custom definitions to text renderer, it may be expecting a file with exactly that name
+    download(outputJSON, `customDefs_charWidth_${gridSize}.json`, 'text/plain');
   }
 
   function download(content, fileName, contentType) {
@@ -139,7 +140,10 @@ function App() {
   }
 
   const onLoadFile = () => {
+    // this is the reset to the internal stock definitions
+    // bad name for this function
     setSessionDefs(customDefs);
+    setGridSize(customDefs.charWidth);
   }
 
   const onOpenLocalFile = (event) => {
@@ -153,6 +157,7 @@ function App() {
     const fileContents = JSON.parse(await file.text());
     console.log('fileContents :>> ', fileContents);
     setSessionDefs(fileContents);
+    setGridSize(fileContents.charWidth);
   }
 
   const handleGridWidth = (event) => {
@@ -195,8 +200,9 @@ function App() {
       </BtnPanel>
       </div>
         <OpenFileBtn onHiddenFileInputClick = { onHiddenFileInputClick }/>
-      <div className="TextRenderer">
-        <p className="TextRenderer__title">Definitions in Set</p>
+
+      <div className="Container">
+        <p className="Container__title">Definitions in Set</p>
         <TextRenderer
           customDefs = { sessionDefs }
           text = {charSet}
@@ -205,11 +211,16 @@ function App() {
           wordWrap = {true}
         />
       </div>
-      <IlluminatedButton
-        values = { [5, 7, 9, 11, 13] }
-        gridWidth = { gridSize }
-        handleGridWidth = { handleGridWidth }
-      />
+
+      <div className="Container">
+        <p className="Container__title">Grid Size</p>
+        <IlluminatedButton
+          values = { [5, 7, 9, 11, 13, 15, 17] }
+          gridWidth = { gridSize }
+          handleGridWidth = { handleGridWidth }
+        />
+      </div>
+
     </div>
   );
 }

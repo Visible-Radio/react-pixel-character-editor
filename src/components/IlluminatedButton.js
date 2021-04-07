@@ -44,30 +44,26 @@ const Illuminated = styled.div`
       box-shadow: 0 0 35px 15px rgba(40, 255, 0, .3);
     `
   }
-
 `;
 
 export default function IlluminatedButton( { values, gridWidth, handleGridWidth }) {
-  console.log('gridWidth :>> ', gridWidth);
 
   return (
-    <div style={{display: 'flex'}}>
+    <div style={{display: 'flex', flexFlow: 'row wrap', justifyContent: 'center'}}>
       {
         values.map(value => {
-          console.log('value :>> ', value);
           return (
             <Illuminated
-              key = { value }
-              data-value = { value }
-              gridWidth = { Number(gridWidth) }
-              onClick = { handleGridWidth }
+            key = { value }
+            data-value = { value }
+            gridWidth = { Number(gridWidth) }
+            onClick = { handleGridWidth }
             >
               { value }
             </Illuminated>
           )
         })
       }
-
     </div>
   )
 }
