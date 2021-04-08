@@ -23,8 +23,8 @@ function App() {
   const [ gridSize, setGridSize ] = useState(5);
   const [ previewWidth, setPreviewWidth] = useState(null);
 
+
   useEffect(() => {
-    // const defPreview = document.querySelector('.Container.Preview')
     const defPreview = document.querySelector('.Container.Preview')
     setPreviewWidth(defPreview.offsetWidth);
     // monitor the size of the container for the character preview
@@ -139,7 +139,6 @@ function App() {
   }
 
   const onSave = () => {
-    console.log('sessionDefs :>> ', sessionDefs);
     // need to include the character width in the definition file
     const output = sessionDefs;
     // output.charWidth or whatever the property is = 5 or whatever
@@ -165,30 +164,24 @@ function App() {
     setSessionDefs(customDefs);
     setGridSize(customDefs.charWidth);
     setDef(customDefs[charKey] ? customDefs[charKey] : []);
-    console.log('sessionDefs on reset :>> ', sessionDefs);
   }
 
   const onOpenLocalFile = (event) => {
     // opening local JSON file
-    console.log("universal button input event");
     const hiddenFileInput = document.querySelector('#file-selector');
     hiddenFileInput.click();
   }
 
   const onHiddenFileInputClick = async (event) => {
-    console.log("hidden input event");
-    console.log('event :>> ', event);
     const file = event.target.files[0];
     if (!file) {
       console.log('no file');
       return;
     }
     const fileContents = JSON.parse(await file.text());
-    console.log('fileContents :>> ', fileContents);
     setGridSize(fileContents.charWidth);
     setSessionDefs(fileContents);
     setDef(fileContents[charKey] ? fileContents[charKey] : []);
-    console.log('sessionDefs on file open :>> ', sessionDefs);
   }
 
   const handleGridWidth = (event) => {
@@ -202,6 +195,8 @@ function App() {
     charSet = Object.keys(sessionDefs).join(' ');
   }
 
+ const scale = 5;
+
   return (
     <div className="App">
       <div className="Title">
@@ -213,11 +208,7 @@ function App() {
           wordWrap = {true}
         />
       </div>
-      <Grid
-        handleBoxClick={handleBoxClick}
-        def={def}
-        gridSize = {gridSize}
-      />
+      <Grid handleBoxClick={handleBoxClick} def={def} gridSize = {gridSize} />
       <div className="ButtonPanel">
       <BtnPanel>
         <CharKey
@@ -232,23 +223,25 @@ function App() {
         <UniversalBtn btnText = {'Stock Defs'} shortText = {'Reset'} BtnClick = {onLoadFile} col = {[0,100,190]} />
       </BtnPanel>
       </div>
-        <OpenFileBtn onHiddenFileInputClick = { onHiddenFileInputClick }/>
+      <OpenFileBtn onHiddenFileInputClick = { onHiddenFileInputClick }/>
 
       <div className="Container Preview">
         <p className="Container__title">Definitions in Set</p>
         <TextRenderer
           customDefs = { sessionDefs }
           text = {charSet}
-          charSpaces = {previewWidth < 660 ? 9 : 19 }
-          scaleMode = {'auto'}
-          wordWrap = {true}
+          scale = { scale }
+          // charSpaces = { previewWidth < 660 ? 9 : 19 }
+          charSpaces = {previewWidth < 660 ? Math.floor(280 / (scale * (gridSize + 1))) : Math.floor(600 / (scale * (gridSize + 1)))}
+          scaleMode = {'fixed'}
+          wordWrap = {false}
         />
       </div>
 
       <div className="Container">
         <p className="Container__title">Grid Size</p>
         <IlluminatedButton
-          values = { [5, 7, 9, 11, 13, 15, 17] }
+          values = { [5, 6, 7, 8, 9, 10, 11] }
           gridWidth = { gridSize }
           handleGridWidth = { handleGridWidth }
         />

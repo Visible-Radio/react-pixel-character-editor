@@ -7,9 +7,7 @@ export const StyledGrid = styled.div`
   height: 320px;
   border: 3px solid rgb(0, 55, 65);
   display: grid;
-  /* grid-template-columns: repeat(9, 1fr); */
   grid-template-columns: repeat(${props => props.gridSize}, 1fr);
-  /* grid-template-rows: repeat(9, 1fr); */
   grid-template-rows: repeat(${props => props.gridSize}, 1fr);
   justify-content: start;
   align-items: start;
@@ -18,11 +16,14 @@ export const StyledGrid = styled.div`
   box-shadow: 5px 5px 10px 3px rgb(0, 20, 0, 0.5);
 
   .box {
+    height: 100%;
+    width: 100%;
     cursor: pointer;
     border: 1px solid rgb(0, 55, 65);
-    transition-property: all;
-    transition-duration: 0.1s;
     background-color: rgb(0,40,50);
+    /* these really dog performance on bigger grids :( */
+    transition-property: color;
+    transition-duration: 0.1s;
   }
 
   .box:hover {
