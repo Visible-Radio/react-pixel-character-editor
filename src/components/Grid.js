@@ -1,17 +1,19 @@
 import Box from './Box';
+import { StyledGrid } from '../styles/StyledGrid';
 
-export default function Grid({ handleBoxClick, def }) {
+export default function Grid({ handleBoxClick, def, gridSize }) {
+
+  const gridArea = gridSize * gridSize;
   const boxes = (() => {
     const arr = []
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < gridArea; i++) {
       arr.push(null);
     }
     return arr;
   })();
+
   return (
-    <div
-      id="editorGrid"
-      >
+    <StyledGrid gridSize={gridSize}>
       {boxes.map((box, i) => {
         return <Box
           key = {i}
@@ -19,6 +21,6 @@ export default function Grid({ handleBoxClick, def }) {
           handleBoxClick = {handleBoxClick}
           state = {(() => def.includes(i) ? 'selected' : '')()}/>
       })}
-    </div>
+    </StyledGrid>
   )
 }

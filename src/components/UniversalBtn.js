@@ -16,6 +16,7 @@ const LaunchNukes = styled.div`
   height: 145px;
   margin: 1px;
   box-shadow: 0 0 1px 2px rgb(0,0,0,0.3);
+  user-select: none;
 
   div {
     background-color: rgba(30, 0, 30, 0.9);
@@ -94,11 +95,10 @@ export default function UniversalBtn({ btnText, BtnClick, shortText, col, borRad
   return (
     <div>
       <LaunchNukes
-      onClick = {BtnClick}
-      cols = {cols}
-      borRad = {borRad}
+        cols = {cols}
+        borRad = {borRad}
       >
-      <div>
+      <div onClick = {BtnClick} >
         <div>{shortText}</div>
       </div>
       <p>{btnText}</p>
