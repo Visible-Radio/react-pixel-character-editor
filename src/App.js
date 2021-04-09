@@ -236,6 +236,7 @@ function App() {
           // charSpaces = {previewWidth < 660 ? Math.floor(280 / (scale * (gridSize + 1))) : Math.floor(600 / (scale * (gridSize + 1)))}
           scaleMode = {'auto'}
           wordWrap = {false}
+          animate = { true }
         />
       </div>
 
