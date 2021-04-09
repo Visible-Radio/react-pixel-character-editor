@@ -2,8 +2,6 @@
 
 A GUI for creating and modifying character definitions for the react-pixel-text-renderer.
 
-*Not Yet Deployed online, but you could always clone the repo and run it locally.*
-
 ### How to:
   * Create a definition in the grid.  A single click will toggle a square on and off. A click followed by a shift-click will toggle all squares in the line between the two clicks.
 
@@ -11,7 +9,7 @@ A GUI for creating and modifying character definitions for the react-pixel-text-
 
   * Click Record Def.  The definition has now been appened to the definitions object.
 
-  * Click Save Defs to File.  The custom definitions will be downloaded as a JSON file.
+  * Click the JSON button.  The custom definitions will be downloaded as a JSON file.
 
   * This file will be able to be used with the react-pixel-text-renderer instead of using it's included definitions.
 
@@ -38,11 +36,11 @@ A GUI for creating and modifying character definitions for the react-pixel-text-
  ```
 
 ### What's next for the Character Editor?
-  * Some additional work is required in order to load your own JSON definition files from local storage, rather than just a stock starter set hard coded into the app.
+  * A sandbox area to try out the Text Renderer package with UI for modifying it's props
+  * A button for starting from a blank definition file
+  * UI improvements
+  * Look into performance issues with hover states on larger grids
 
-### What's next for react-pixel-text-renderer?
-  * I've been thinking about implementing support for different sizes of character definition grids.
-  * Currently chars are defined in a 5 x 5 grid.  I'd like to Implement the ability to define characters on larger grids.
-  * This would enable proper support for upper and lower case characters and characters that can't be legibly defined with only 25 squares.  
-  * After wokring through that, another challenge would be to define the grid size on a per character basis rather than on a character set basis.  This would complicate the calculations for when to jump to a new line.
+### What's next for react-pixel-text-renderer?  
+  * Another challenge would be to define the grid size on a per character basis rather than on a character set basis. This would complicate the calculations for when to jump to a new line.
 
