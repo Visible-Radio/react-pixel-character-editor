@@ -10,10 +10,10 @@ import IlluminatedButton from './components/IlluminatedButton';
 import customDefs from './customDefs.json';
 
 // TextRenderer from installed Node module
-// import TextRenderer from 'react-pixel-text-renderer';
+import TextRenderer from 'react-pixel-text-renderer';
 
 // TextRenderer from local src for development
-import TextRenderer from './text-renderer-src/TextRenderer'
+// import TextRenderer from './text-renderer-src/TextRenderer'
 
 function App() {
   const [ def, setDef ] = useState([]);
@@ -22,7 +22,6 @@ function App() {
   const [ lastBoxValue, setLastBoxValue] = useState(null);
   const [ gridSize, setGridSize ] = useState(5);
   const [ previewWidth, setPreviewWidth] = useState(null);
-
 
   useEffect(() => {
     const defPreview = document.querySelector('.Container.Preview')
@@ -67,7 +66,9 @@ function App() {
           return [lastBoxValue, ...res1, ...res2].sort((a,b) => a - b);
         } else if (def.includes(boxValue)) {
           // if last clicked removed an item from the def, we'll need to remove the CURRENT item upon our shift click
-          return[...res1, ...res2].filter(coordinate => coordinate !== boxValue && coordinate !== lastBoxValue).sort((a,b) => a - b);
+          return[...res1, ...res2]
+            .filter(coordinate => coordinate !== boxValue && coordinate !== lastBoxValue)
+            .sort((a,b) => a - b);
         }
       })
     }
@@ -76,7 +77,7 @@ function App() {
 
   const findBetween = (lastClick, currentClick) => {
     // some conditions:
-    // current in in same row as last
+    // current is in same row as last
     // current is in same column as last
     // current is in a different row and column, but is on a 45 degree diagonal from last
     // path between last and current is ambiguous and can't be decided without injecting an opinion
@@ -139,11 +140,8 @@ function App() {
   }
 
   const onSave = () => {
-    // need to include the character width in the definition file
     const output = sessionDefs;
-    // output.charWidth or whatever the property is = 5 or whatever
     const outputJSON = JSON.stringify(output);
-    // changing fileName from 'customDefs.json' may break imports of custom definitions to text renderer, it may be expecting a file with exactly that name
     download(outputJSON, `customDefs_charWidth_${gridSize}.json`, 'text/plain');
   }
 
@@ -195,10 +193,10 @@ function App() {
     charSet = Object.keys(sessionDefs).join(' ');
   }
 
- const scale = 5;
-
+  const scale = 5;
   return (
     <div className="App">
+
       <div className="Title">
         <TextRenderer
           text = {'React Pixel Character Editor'}
@@ -208,20 +206,22 @@ function App() {
           wordWrap = {true}
         />
       </div>
+
       <Grid handleBoxClick={handleBoxClick} def={def} gridSize = {gridSize} />
+
       <div className="ButtonPanel">
-      <BtnPanel>
-        <CharKey
-          onCharKeyInput = {onCharKeyInput}
-          charKey = {charKey}
-          onRecordDef = {onRecordDef}
-        />
-        <UniversalBtn btnText = {'Record Definition'} shortText = {'Record'} BtnClick = {onRecordDef} col = {[250,100,20]}/>
-        <UniversalBtn btnText = {'Clear Grid'} shortText = {'Clear'} BtnClick = {onClear} col = {[200,240,20]} />
-        <UniversalBtn btnText = {'Export JSON'} shortText = {'JSON'} BtnClick = {onSave} col = {[0,200,190]} borRad = {'50%'} />
-        <UniversalBtn btnText = {'Load File'} shortText = {'Load'} BtnClick = {onOpenLocalFile} col = {[190,0,90]} />
-        <UniversalBtn btnText = {'Stock Defs'} shortText = {'Reset'} BtnClick = {onLoadFile} col = {[0,100,190]} />
-      </BtnPanel>
+        <BtnPanel>
+          <CharKey
+            onCharKeyInput = {onCharKeyInput}
+            charKey = {charKey}
+            onRecordDef = {onRecordDef}
+          />
+          <UniversalBtn btnText = {'Record Definition'} shortText = {'Record'} BtnClick = {onRecordDef} col = {[250,100,20]}/>
+          <UniversalBtn btnText = {'Clear Grid'} shortText = {'Clear'} BtnClick = {onClear} col = {[200,240,20]} />
+          <UniversalBtn btnText = {'Export JSON'} shortText = {'JSON'} BtnClick = {onSave} col = {[0,200,190]} borRad = {'50%'} />
+          <UniversalBtn btnText = {'Load File'} shortText = {'Load'} BtnClick = {onOpenLocalFile} col = {[190,0,90]} />
+          <UniversalBtn btnText = {'Stock Defs'} shortText = {'Reset'} BtnClick = {onLoadFile} col = {[0,100,190]} />
+        </BtnPanel>
       </div>
       <OpenFileBtn onHiddenFileInputClick = { onHiddenFileInputClick }/>
 
@@ -231,9 +231,10 @@ function App() {
           customDefs = { sessionDefs }
           text = {charSet}
           scale = { scale }
-          // charSpaces = { previewWidth < 660 ? 9 : 19 }
-          charSpaces = {previewWidth < 660 ? Math.floor(280 / (scale * (gridSize + 1))) : Math.floor(600 / (scale * (gridSize + 1)))}
-          scaleMode = {'fixed'}
+          charSpaces = { previewWidth < 660 ? 9 : 19 }
+          // Use the below if using 'fixed' scale mode to keep chars from overflowing container
+          // charSpaces = {previewWidth < 660 ? Math.floor(280 / (scale * (gridSize + 1))) : Math.floor(600 / (scale * (gridSize + 1)))}
+          scaleMode = {'auto'}
           wordWrap = {false}
         />
       </div>
