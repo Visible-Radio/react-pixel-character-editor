@@ -6,6 +6,7 @@ import OpenFileBtn from './components/OpenFileBtn';
 import UniversalBtn from './components/UniversalBtn';
 import BtnPanel from './components/BtnPanel';
 import IlluminatedButton from './components/IlluminatedButton';
+import Toggle from './components/Toggle';
 // These are used as the default definitions
 import customDefs from './customDefs.json';
 
@@ -22,6 +23,7 @@ function App() {
   const [ lastBoxValue, setLastBoxValue] = useState(null);
   const [ gridSize, setGridSize ] = useState(5);
   const [ previewWidth, setPreviewWidth] = useState(null);
+  const [ animate, setAnimate ] = useState(false);
 
   useEffect(() => {
     const defPreview = document.querySelector('.Container.Preview')
@@ -188,6 +190,10 @@ function App() {
     setSessionDefs({...sessionDefs, charWidth: newWidth, " " : []})
   }
 
+  const toggleAnimate = () => {
+    setAnimate(!animate);
+  }
+
   let charSet = '';
   if (sessionDefs) {
     charSet = Object.keys(sessionDefs).join(' ');
@@ -225,20 +231,24 @@ function App() {
       </div>
       <OpenFileBtn onHiddenFileInputClick = { onHiddenFileInputClick }/>
 
-      <div className="Container Preview">
-        <p className="Container__title">Definitions in Set</p>
-        <TextRenderer
-          customDefs = { sessionDefs }
-          text = {charSet}
-          scale = { scale }
-          charSpaces = { previewWidth < 660 ? 9 : 19 }
-          // Use the below if using 'fixed' scale mode to keep chars from overflowing container
-          // charSpaces = {previewWidth < 660 ? Math.floor(280 / (scale * (gridSize + 1))) : Math.floor(600 / (scale * (gridSize + 1)))}
-          scaleMode = {'auto'}
-          wordWrap = {false}
-          animate = { true }
-        />
+      <div className="ToggleReference">
+        <Toggle toggleAnimate = { toggleAnimate } animate = { animate } />
+        <div className="Container Preview">
+          <p className="Container__title">Definitions in Set</p>
+          <TextRenderer
+            customDefs = { sessionDefs }
+            text = {charSet}
+            scale = { scale }
+            charSpaces = { previewWidth < 660 ? 9 : 19 }
+            // Use the below if using 'fixed' scale mode to keep chars from overflowing container
+            // charSpaces = {previewWidth < 660 ? Math.floor(280 / (scale * (gridSize + 1))) : Math.floor(600 / (scale * (gridSize + 1)))}
+            scaleMode = {'auto'}
+            wordWrap = {false}
+            animate = { animate }
+          />
+        </div>
       </div>
+
 
       <div className="Container">
         <p className="Container__title">Grid Size</p>
