@@ -53,6 +53,7 @@ const ToggleSwitch = styled.div`
     color: rgb(0,190,200);
     background-color: rgb(0,0,0,0.8);
     border-radius: 0 3px 0 3px;
+    font-size: 14px;
   }
 
 `;
