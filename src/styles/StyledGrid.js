@@ -22,8 +22,8 @@ export const StyledGrid = styled.div`
     border: 1px solid rgb(0, 55, 65);
     background-color: rgb(0,40,50);
     /* these really dog performance on bigger grids :( */
-    transition-property: color;
-    transition-duration: 0.1s;
+    /* transition-property: color;
+    transition-duration: 0.1s; */
   }
 
   .box:hover {
@@ -33,7 +33,6 @@ export const StyledGrid = styled.div`
   .box:active {
     border: 1px solid rgb(10, 240, 0);
     background-color: rgb(100, 255, 0);
-    transform: scale(0.9);
     filter: contrast(1.5) brightness(2);
     box-shadow: 0 0 30px 15px rgba(40, 255, 0, .5);
   }

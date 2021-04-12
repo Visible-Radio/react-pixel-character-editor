@@ -54,6 +54,7 @@ const ToggleSwitch = styled.div`
     background-color: rgb(0,0,0,0.8);
     border-radius: 0 3px 0 3px;
     font-size: 14px;
+    z-index: 0;
   }
 
 `;

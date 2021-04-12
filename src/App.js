@@ -7,6 +7,9 @@ import UniversalBtn from './components/UniversalBtn';
 import BtnPanel from './components/BtnPanel';
 import IlluminatedButton from './components/IlluminatedButton';
 import Toggle from './components/Toggle';
+import TinyButton from './components/TinyButton';
+import TRplayground from './components/TRplayground';
+import About from './components/About';
 // These are used as the default definitions
 import customDefs from './customDefs.json';
 
@@ -24,6 +27,8 @@ function App() {
   const [ gridSize, setGridSize ] = useState(5);
   const [ previewWidth, setPreviewWidth] = useState(null);
   const [ animate, setAnimate ] = useState(false);
+  const [ viewInfo, setViewInfo] = useState(false);
+  const [ viewSandbox, setViewSandbox] = useState(false);
 
   useEffect(() => {
     const defPreview = document.querySelector('.Container.Preview')
@@ -194,14 +199,29 @@ function App() {
     setAnimate(!animate);
   }
 
+  const toggleViewInfo = () => {
+    setViewSandbox(viewSandbox ? false : false);
+    setViewInfo(viewInfo ? false : true);
+  }
+
+  const toggleViewSandbox = () => {
+    setViewInfo(viewInfo ? false : false);
+    setViewSandbox(viewSandbox ? false : true);
+  }
+
   let charSet = '';
   if (sessionDefs) {
     charSet = Object.keys(sessionDefs).join(' ');
   }
 
   const scale = 5;
+  console.log('rendering');
   return (
     <div className="App">
+      <nav>
+        <TinyButton onClick = {toggleViewInfo} color = {'rgb(0,200,0)'} shortText = {'?'} text = {'What is this?'} />
+        <TinyButton onClick = {toggleViewSandbox} color = {'rgb(0,200,0)'} shortText = {'TR'} text = {'Text Renderer View'} />
+      </nav>
 
       <div className="Title">
         <TextRenderer
@@ -213,7 +233,17 @@ function App() {
         />
       </div>
 
-      <Grid handleBoxClick={handleBoxClick} def={def} gridSize = {gridSize} />
+      <About render = {viewInfo} onClick = {toggleViewInfo} />
+      <TRplayground
+        render = {viewSandbox}
+        onClick = {toggleViewSandbox}
+        previewWidth = {previewWidth}
+        sessionDefs = {sessionDefs}
+        />
+
+      <div className="EditorGrid">
+        <Grid handleBoxClick={handleBoxClick} def={def} gridSize = {gridSize} />
+      </div>
 
       <div className="ButtonPanel">
         <BtnPanel>
@@ -248,7 +278,6 @@ function App() {
           />
         </div>
       </div>
-
 
       <div className="Container">
         <p className="Container__title">Grid Size</p>
