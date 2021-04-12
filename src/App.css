@@ -21,6 +21,7 @@ Nav {
   align-self: start;
   top: 0;
   position: sticky;
+  z-index: 2;
 }
 
 .Overlay {
