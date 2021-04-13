@@ -4,7 +4,7 @@ export default function About( { render, onClick }) {
   if (!render) return null;
   return (
     <div className="Overlay Container bs mh300">
-      <div style={{zIndex: '1', position: 'absolute', top: '-10px', left: '98%'}}>
+      <div style={{zIndex: '1', position: 'absolute', top: '-20px', right: '-23px'}}>
         <TinyButton color = {'rgb(200,0,0)'} shortText = {'X'} onClick = {onClick} />
       </div>
       <p className="Container__title">What is this thing?</p>

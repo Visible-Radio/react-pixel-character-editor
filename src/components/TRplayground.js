@@ -53,7 +53,7 @@ export default function TRplayground( { render, onClick, previewWidth, sessionDe
     <div className="Overlay ToggleReference">
       <Toggle animate={animate} toggleAnimate={toggleAnimate} />
       <div className="Container bs mh300">
-        <div style={{zIndex: '1', position: 'absolute', top: '10px', left: '97%'}}>
+        <div style={{zIndex: '1', position: 'absolute', top: '10px', right: '-17px'}}>
           <TinyButton color = {'rgb(200,0,0)'} shortText = {'X'} onClick = {onClick} />
         </div>
         <p className="Container__title">Text Renderer Sandbox</p>
