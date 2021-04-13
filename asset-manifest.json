@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/react-pixel-character-editor/static/css/main.867bd8e2.chunk.css",
-    "main.js": "/react-pixel-character-editor/static/js/main.c1e52cb9.chunk.js",
-    "main.js.map": "/react-pixel-character-editor/static/js/main.c1e52cb9.chunk.js.map",
+    "main.css": "/react-pixel-character-editor/static/css/main.a54b3a98.chunk.css",
+    "main.js": "/react-pixel-character-editor/static/js/main.44cd2ca2.chunk.js",
+    "main.js.map": "/react-pixel-character-editor/static/js/main.44cd2ca2.chunk.js.map",
     "runtime-main.js": "/react-pixel-character-editor/static/js/runtime-main.483efefc.js",
     "runtime-main.js.map": "/react-pixel-character-editor/static/js/runtime-main.483efefc.js.map",
     "static/js/2.3b89a1be.chunk.js": "/react-pixel-character-editor/static/js/2.3b89a1be.chunk.js",
     "static/js/2.3b89a1be.chunk.js.map": "/react-pixel-character-editor/static/js/2.3b89a1be.chunk.js.map",
     "index.html": "/react-pixel-character-editor/index.html",
-    "static/css/main.867bd8e2.chunk.css.map": "/react-pixel-character-editor/static/css/main.867bd8e2.chunk.css.map",
+    "static/css/main.a54b3a98.chunk.css.map": "/react-pixel-character-editor/static/css/main.a54b3a98.chunk.css.map",
     "static/js/2.3b89a1be.chunk.js.LICENSE.txt": "/react-pixel-character-editor/static/js/2.3b89a1be.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.483efefc.js",
     "static/js/2.3b89a1be.chunk.js",
-    "static/css/main.867bd8e2.chunk.css",
-    "static/js/main.c1e52cb9.chunk.js"
+    "static/css/main.a54b3a98.chunk.css",
+    "static/js/main.44cd2ca2.chunk.js"
   ]
 }
