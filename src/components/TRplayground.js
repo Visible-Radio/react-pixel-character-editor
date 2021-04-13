@@ -1,3 +1,4 @@
+import { useState } from "react";
 import TextRenderer from "react-pixel-text-renderer";
 import styled from "styled-components";
 import TinyButton from "./TinyButton";
@@ -11,11 +12,12 @@ const UserText = styled.input`
     font-size: 1rem;
     text-align: center;
     border-width: 3px;
-    border-radius: 15px;
+    border-radius: 5px;
     border-color: rgb(0,150,0) rgb(0,115,0) rgb(0,118,0) rgb(0,148,0);
     transition-property: all;
     transition-duration: 0.1s;
-    margin-top: 20px;
+    margin-top: 15px;
+    margin-bottom: 10px;
 
     &:focus {
       outline: none;
@@ -24,34 +26,57 @@ const UserText = styled.input`
 `;
 
 export default function TRplayground( { render, onClick, previewWidth, sessionDefs }) {
-    if (!render) return null;
-    return (
-      <div className="ToggleReference Overlay">
-        <Toggle />
-        <div className="Container">
-          <div style={{zIndex: '1', position: 'absolute', top: '10px', left: '97%'}}>
-            <TinyButton color = {'rgb(200,0,0)'} shortText = {'X'} onClick = {onClick} />
-          </div>
-          <p className="Container__title">Text Renderer Sandbox</p>
-          <TextRenderer
-              customDefs = {sessionDefs}
-              text = {"Coming soon, try your custom text here! Modify a selection of the Text Renderer's various props.  Animation, text, wordwrap and color."}
-              charSpaces = {previewWidth < 660 ? 9 : 28}
-              scale = {5}
-              scaleMode = {'auto'}
-              wordWrap = {true}
-              animate = {false}
-              // color = {[200,100,0]}
-          />
-          <div className ="flex-jc-aic">
-            <UserText
-              maxLength="100"
-              type="text"
-              placeholder ="Try your own text!"
-            / >
-            <TinyButton color = {'rgb(0,200,0)'} shortText={'✓'} text={'Apply Text'} onClick = {null} />
-          </div>
+  const defaultText = 'Try Your Own Text Here';
+  const empty = ''
+  const [ textInputState, setTextInputState] = useState(defaultText);
+  const [ animate, setAnimate] = useState(false);
+
+  if (!render) return null;
+
+  const onInputChange = (event) => {
+    setTextInputState(event.target.value);
+  }
+
+  const toggleAnimate = () => {
+    setAnimate(!animate);
+  }
+
+  const onReset = () => {
+    setAnimate(false);
+    setTextInputState(empty);
+  }
+
+  console.log('previewWidth :>> ', previewWidth);
+  const maxCharSpaces = previewWidth < 660 ? 9 : 20;
+
+  return (
+    <div className="Overlay ToggleReference">
+      <Toggle animate={animate} toggleAnimate={toggleAnimate} />
+      <div className="Container bs mh300">
+        <div style={{zIndex: '1', position: 'absolute', top: '10px', left: '97%'}}>
+          <TinyButton color = {'rgb(200,0,0)'} shortText = {'X'} onClick = {onClick} />
+        </div>
+        <p className="Container__title">Text Renderer Sandbox</p>
+        <TextRenderer
+            customDefs = {sessionDefs}
+            text = {textInputState || defaultText}
+            // charSpaces = {previewWidth < 660 ? 9 : 28}
+            charSpaces = {textInputState.length < maxCharSpaces ? textInputState.length : maxCharSpaces}
+            scale = {5}
+            scaleMode = {'auto'}
+            wordWrap = {true}
+            animate = {animate}
+        />
+        <div className="flex-jc-aic w100">
+          <UserText
+            maxLength="100"
+            type="text"
+            onChange = {onInputChange}
+            value = {textInputState}
+          / >
+          <TinyButton color = {'rgb(0,200,0)'} shortText = {'C'} text = {'Clear'} onClick = {onReset} />
         </div>
       </div>
+    </div>
   )
 }
