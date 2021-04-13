@@ -236,6 +236,7 @@ function App() {
       <ConditionalRender render = {viewInfo}>
         <About onClick = {toggleViewInfo} />
       </ConditionalRender>
+
       <ConditionalRender render = {viewSandbox}>
         <TRplayground
           onClick = {toggleViewSandbox}
