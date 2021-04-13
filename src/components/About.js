@@ -1,7 +1,6 @@
 import TinyButton from "./TinyButton";
 
-export default function About( { render, onClick }) {
-  if (!render) return null;
+export default function About( { onClick }) {
   return (
     <div className="Overlay Container bs mh300">
       <div style={{zIndex: '1', position: 'absolute', top: '-20px', right: '-23px'}}>

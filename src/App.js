@@ -15,6 +15,7 @@ import customDefs from './customDefs.json';
 
 // TextRenderer from installed Node module
 import TextRenderer from 'react-pixel-text-renderer';
+import ConditionalRender from './components/ConditionalRender';
 
 // TextRenderer from local src for development
 // import TextRenderer from './text-renderer-src/TextRenderer'
@@ -215,7 +216,6 @@ function App() {
   }
 
   const scale = 5;
-  console.log('rendering');
   return (
     <div className="App">
       <nav>
@@ -233,13 +233,16 @@ function App() {
         />
       </div>
 
-      <About render = {viewInfo} onClick = {toggleViewInfo} />
-      <TRplayground
-        render = {viewSandbox}
-        onClick = {toggleViewSandbox}
-        previewWidth = {previewWidth}
-        sessionDefs = {sessionDefs}
-      />
+      <ConditionalRender render = {viewInfo}>
+        <About onClick = {toggleViewInfo} />
+      </ConditionalRender>
+      <ConditionalRender render = {viewSandbox}>
+        <TRplayground
+          onClick = {toggleViewSandbox}
+          previewWidth = {previewWidth}
+          sessionDefs = {sessionDefs}
+        />
+      </ConditionalRender>
 
       <div className="EditorGrid">
         <Grid handleBoxClick={handleBoxClick} def={def} gridSize = {gridSize} />

@@ -25,13 +25,13 @@ const UserText = styled.input`
     }
 `;
 
-export default function TRplayground( { render, onClick, previewWidth, sessionDefs }) {
+export default function TRplayground( { onClick, previewWidth, sessionDefs }) {
   const defaultText = 'Try Your Own Text Here';
   const empty = ''
   const [ textInputState, setTextInputState] = useState(defaultText);
   const [ animate, setAnimate] = useState(false);
-
-  if (!render) return null;
+  const maxCharSpaces = previewWidth < 660 ? 9 : 20;
+ const textProp = textInputState.length ? textInputState : defaultText;
 
   const onInputChange = (event) => {
     setTextInputState(event.target.value);
@@ -46,9 +46,6 @@ export default function TRplayground( { render, onClick, previewWidth, sessionDe
     setTextInputState(empty);
   }
 
-  console.log('previewWidth :>> ', previewWidth);
-  const maxCharSpaces = previewWidth < 660 ? 9 : 20;
-
   return (
     <div className="Overlay ToggleReference">
       <Toggle animate={animate} toggleAnimate={toggleAnimate} />
@@ -60,8 +57,7 @@ export default function TRplayground( { render, onClick, previewWidth, sessionDe
         <TextRenderer
             customDefs = {sessionDefs}
             text = {textInputState || defaultText}
-            // charSpaces = {previewWidth < 660 ? 9 : 28}
-            charSpaces = {textInputState.length < maxCharSpaces ? textInputState.length : maxCharSpaces}
+            charSpaces = {textProp.length < maxCharSpaces ? textProp.length : maxCharSpaces}
             scale = {5}
             scaleMode = {'auto'}
             wordWrap = {true}
