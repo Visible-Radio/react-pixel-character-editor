@@ -239,7 +239,7 @@ function App() {
         onClick = {toggleViewSandbox}
         previewWidth = {previewWidth}
         sessionDefs = {sessionDefs}
-        />
+      />
 
       <div className="EditorGrid">
         <Grid handleBoxClick={handleBoxClick} def={def} gridSize = {gridSize} />

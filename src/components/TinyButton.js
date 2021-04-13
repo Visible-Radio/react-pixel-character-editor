@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 const NavButton = styled.div`
   user-select: none;
-  width: 30px;
+  width: ${props => props.shortText ? '30px' : '140px'};
   height: 30px;
-  margin-bottom: 10px;
+  margin: 5px;
   border-radius: 15px;
   display: flex;
   justify-content: center;

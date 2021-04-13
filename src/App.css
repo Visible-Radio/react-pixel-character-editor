@@ -30,6 +30,7 @@ Nav {
   z-index: 1;
   position: sticky;
   top: 10%;
+  width: 100%;
   transform: scale(1.025);
 }
 
@@ -65,7 +66,6 @@ Nav {
 
 .ToggleReference {
   position: relative;
-  z-index: 0;
   grid-column: 2 / 4;
 }
 
@@ -112,4 +112,13 @@ html {
 body {
   background-color: rgb(0,40,50);
   color: rgb(240, 10, 0);
+}
+
+.flex-jc-aic {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
 }
